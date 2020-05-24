@@ -5,10 +5,10 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Rocks</title>
 
     <link rel="stylesheet" href="styles/general.css">
-
-    <title>Rocks</title>
+    <link rel="stylesheet" href="styles/navigation.css">
 </head>
 <body>
     <?php include "common/header.php"?>

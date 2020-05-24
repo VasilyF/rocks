@@ -1,9 +1,3 @@
-html, body{
-    box-sizing: border-box;
-    height: 100%;
-    width: 100%;
-}
-
 * {
     font-family: SansSerif, sans-serif;
 }
@@ -12,8 +6,9 @@ html, body{
     box-sizing: inherit;
 }
 
-h1 {
-    color: #767676;
+html, body{
+    height: 100%; width: 100%;
+    box-sizing: border-box;
 }
 
 .center {
