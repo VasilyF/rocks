@@ -6,8 +6,8 @@
               content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
-        <link rel="stylesheet" href="styles/general.css">
-        <link rel="stylesheet" href="styles/login.css">
+        <link rel="stylesheet" href="../styles/general.css">
+        <link rel="stylesheet" href="../styles/login.css">
 
         <title>Rocks Login</title>
     </head>
@@ -29,6 +29,6 @@
             </ul>
         </form>
         </main>
-        <?php include "common/footer.php"?>
+        <?php include "common/footer.php" ?>
     </body>
 </html>
