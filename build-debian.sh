@@ -25,9 +25,12 @@ ROCKS_ROOT=$PWD
 # include configuration files
 
 sudo cp apache/sites-available/rocks.conf $APACHE_CONFIG_ROOT/sites-available/
+sudo cp apache/conf-available/local-default.conf $APACHE_CONFIG_ROOT/conf-available/
 cd $APACHE_CONFIG_ROOT/sites-available/
 sudo a2dissite -q *
 sudo a2ensite -q rocks
+cd $APACHE_CONFIG_ROOT/conf-available/
+sudo a2enconf -q local-default
 cd $ROCKS_ROOT
 
 
