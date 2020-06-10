@@ -1,5 +1,13 @@
 #!/bin/bash
 
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+# This build script is specific to the kind
+# of Apache configuration expected on Debian-
+# based operating systems (ie. Ubuntu) and
+# should not be executed on other UNIX-based
+# systems (ie. Mac OSX)
+# !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+
 # -----------------------------------------------
 # builds the application into a serviceable state
 # on http://localhost/rocks.php:80
