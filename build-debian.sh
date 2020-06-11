@@ -28,10 +28,10 @@ sudo cp apache/sites-available/rocks.conf $APACHE_CONFIG_ROOT/sites-available/
 sudo cp apache/conf-available/local-default.conf $APACHE_CONFIG_ROOT/conf-available/
 sudo cp apache/ports.conf $APACHE_CONFIG_ROOT/
 cd $APACHE_CONFIG_ROOT/sites-available/
-sudo a2dissite -q *
-sudo a2ensite -q rocks
+sudo a2dissite -q * > /dev/null 2>&1
+sudo a2ensite -q rocks > /dev/null 2>&1
 cd $APACHE_CONFIG_ROOT/conf-available/
-sudo a2enconf -q local-default
+sudo a2enconf -q local-default > /dev/null 2>&1
 cd $ROCKS_ROOT
 
 
