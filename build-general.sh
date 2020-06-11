@@ -1,11 +1,7 @@
 #!/bin/bash
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-# This build script is specific to the kind
-# of Apache configuration expected on Debian-
-# based operating systems (ie. Ubuntu) and
-# should not be executed on other UNIX-based
-# systems (ie. Mac OSX)
+# This build script is applicable to any OS
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 # -----------------------------------------------
@@ -19,20 +15,6 @@ APACHE_CONFIG_ROOT="/etc/apache2"
 APACHE_BIN_ROOT="/usr/sbin"
 APACHE_MODULES_ROOT="/usr/lib/apache2/modules" # do not use directly, use a2enmod
 ROCKS_ROOT=$PWD
-
-
-# -----------------------------------------------
-# include configuration files
-APACHE_DEBIAN_PROJECT_CONFIG_ROOT=apache/debian
-sudo cp $APACHE_DEBIAN_PROJECT_CONFIG_ROOT/sites-available/rocks.conf $APACHE_CONFIG_ROOT/sites-available/
-sudo cp $APACHE_DEBIAN_PROJECT_CONFIG_ROOT/conf-available/local-default.conf $APACHE_CONFIG_ROOT/conf-available/
-sudo cp $APACHE_DEBIAN_PROJECT_CONFIG_ROOT/ports.conf $APACHE_CONFIG_ROOT/
-cd $APACHE_CONFIG_ROOT/sites-available/
-sudo a2dissite -q * > /dev/null 2>&1
-sudo a2ensite -q rocks > /dev/null 2>&1
-cd $APACHE_CONFIG_ROOT/conf-available/
-sudo a2enconf -q local-default > /dev/null 2>&1
-cd $ROCKS_ROOT
 
 
 # -----------------------------------------------
@@ -58,8 +40,4 @@ sudo mkdir -p $APACHE_LOGS_ROOT/rocks
 
 # -----------------------------------------------
 # restart Apache server
-sudo apachectl restart
-
-
-
-
+sudo apachectl restart -f $ROCKS_ROOT/apache/general/apache2-rocks-general.conf
