@@ -12,12 +12,39 @@
 #
 # Arguments
 # $1 - start | restart | stop
-# $2 - absolute path to apache2 executable
+# $2 - absolute path to apache2 executable (other)
 # -----------------------------------------------
 
-# APACHE_BIN_ROOT="/usr/sbin" -- determine the path to the apache2/httpd binary
+# check arguments -- put echo statements
 
-APACHE_BIN=${2:-/usr/sbin/apache2}
+
+# -----------------------------------------------
+# determine the path to the apache2/httpd binary
+if [ -f $2 ]; then
+  # get path to executable from argument
+  APACHE_BIN=$2;
+else
+  # look for executable in path
+  for path in ${PATH//:/ }; do
+    if [ -f $path/apache2 ]; then
+      APACHE_BIN=$path/apache2
+      break
+    elif [ -f $path/httpd ]; then
+      APACHE_BIN=$path/httpd
+      break
+    fi
+  done
+fi
+
+if [ -z $APACHE_BIN ]; then
+  echo "could not locate apache executable... "
+  echo "you should either: "
+  echo "1) explicitly provide the absolute path to the executable as the second argument"
+  echo "ie. ./build-general.sh start /usr/sbin/apache2"
+  echo "2) make sure that the executable can be found in the PATH variable"
+  echo "terminating script..."
+  return 1
+fi
 
 APACHE_ROCKS_ROOT="/srv/apache2/rocks"
 APACHE_DOCS_ROOT="$APACHE_ROCKS_ROOT/docs"
