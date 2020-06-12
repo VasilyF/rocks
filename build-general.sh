@@ -15,22 +15,24 @@
 # $2 - absolute path to apache2 executable (other)
 # -----------------------------------------------
 
+echo "------------------------------------------"
+
 # -----------------------------------------------
 # check command argument is present
 CMD=$1
 if [[ ! "$CMD" =~ ^(start|stop|restart)$ ]]; then
     echo "invalid command... needs to be one of start | stop | restart"
     echo "ie. ./build-general.sh start usr/sbin/apache2"
-    echo "terminating build"
-    return 1
+    exit 1
 fi
 
 
 # -----------------------------------------------
 # determine the path to the apache2/httpd binary
-if [ -f $2 ]; then
+if [ $2 ]; then
   # get path to executable from argument
   APACHE_BIN=$2;
+  echo "using apache executable: $APACHE_BIN"
 else
   # look for executable in path
   echo "apache executable not provided, looking in PATH..."
@@ -53,19 +55,22 @@ if [ -z $APACHE_BIN ]; then
   echo "1) explicitly provide the absolute path to the executable as the second argument"
   echo "ie. ./build-general.sh start /usr/sbin/apache2"
   echo "2) make sure that the executable can be found using the PATH variable"
-  echo "terminating build"
-  return 1
+  exit 1
 fi
 
 if [ $CMD == "stop" ]; then
   echo "stopping server..."
+
+  $APACHE_BIN -k $CMD
   {
-    $APACHE_BIN -k $CMD &&
-    echo "server stopped"
-    return 0
+    [ $? -eq 0 ] &&
+    {
+      echo "server stopped"
+      exit 0
+    }
   } || {
     echo "error occurred while stopping server"
-    return 1
+    exit 1
   }
 fi
 
@@ -74,8 +79,7 @@ APACHE_DOCS_ROOT="$APACHE_ROCKS_ROOT/docs"
 APACHE_LOGS_ROOT="$APACHE_ROCKS_ROOT/log"
 APACHE_CONFIG_ROOT="$APACHE_ROCKS_ROOT/etc"
 
-echo "------------------------------------------"
-echo "purging $APACHE_ROCKS_ROOT"
+echo "purging $APACHE_ROCKS_ROOT..."
 
 # -----------------------------------------------
 # purge /srv/apache2/rocks
@@ -83,7 +87,7 @@ sudo rm -rf $APACHE_ROCKS_ROOT
 sudo mkdir -p $APACHE_ROCKS_ROOT
 sudo chown $USER:$USER $APACHE_ROCKS_ROOT
 
-echo "installing files into $APACHE_ROCKS_ROOT"
+echo "installing files into $APACHE_ROCKS_ROOT..."
 
 # -----------------------------------------------
 # include documents to serve in /srv/apache2/rocks/docs
@@ -92,10 +96,28 @@ cp -r frontend/{images,pages,scripts,styles} $APACHE_DOCS_ROOT
 
 # -----------------------------------------------
 # set up log files
-sudo mkdir -p $APACHE_LOGS_ROOT
-
-echo "...complete"
+mkdir -p $APACHE_LOGS_ROOT
 
 # -----------------------------------------------
-# restart Apache server
-#sudo $APACHE_BIN -d $APACHE_CONFIG_ROOT/apache2-rocks-general.conf -k $CMD
+# include configuration file
+PROJECT_GENERAL_CONF_FILE=apache/general/apache2-general.conf
+mkdir -p $APACHE_CONFIG_ROOT
+cp $PROJECT_GENERAL_CONF_FILE $APACHE_CONFIG_ROOT/apache2.conf
+
+echo "(re)starting server..."
+
+# -----------------------------------------------
+# (re)start Apache server
+sudo $APACHE_BIN -d $APACHE_CONFIG_ROOT -k $CMD
+{
+    [ $? -eq 0 ] &&
+    {
+      echo "...complete"
+      echo "apache is serving site content on http://localhost:80"
+      exit 0
+    }
+  } || {
+    echo "error occurred while attempting to (re)start server"
+    exit 1
+  }
+
