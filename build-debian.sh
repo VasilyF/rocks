@@ -44,9 +44,7 @@ sudo mkdir $APACHE_DOCS_ROOT
 sudo chown $USER:$USER $APACHE_DOCS_ROOT
 
 # include content to be served
-cd frontend/
-cp -r images pages scripts styles $APACHE_DOCS_ROOT
-cd ../
+cp -r frontend/{images,pages,scripts,styles} $APACHE_DOCS_ROOT
 
 
 # -----------------------------------------------
