@@ -75,9 +75,9 @@ if [ $CMD == "stop" ]; then
 fi
 
 APACHE_ROCKS_ROOT="/srv/apache2/rocks"
-APACHE_DOCS_ROOT="$APACHE_ROCKS_ROOT/docs"
-APACHE_LOGS_ROOT="$APACHE_ROCKS_ROOT/log"
-APACHE_CONFIG_ROOT="$APACHE_ROCKS_ROOT/etc"
+APACHE_DOCS_ROOT="$APACHE_ROCKS_ROOT/htdocs"
+APACHE_LOGS_ROOT="$APACHE_ROCKS_ROOT/logs"
+APACHE_CONFIG_ROOT="$APACHE_ROCKS_ROOT/conf"
 
 echo "purging $APACHE_ROCKS_ROOT..."
 
@@ -102,7 +102,13 @@ mkdir -p $APACHE_LOGS_ROOT
 # include configuration file
 PROJECT_GENERAL_CONF_ROOT=apache/general
 mkdir -p $APACHE_CONFIG_ROOT
-cp $PROJECT_GENERAL_CONF_ROOT/apache2-general.conf $APACHE_CONFIG_ROOT/apache2.conf
+cp $PROJECT_GENERAL_CONF_ROOT/apache2-general.conf $APACHE_CONFIG_ROOT/httpd.conf
+
+# -----------------------------------------------
+# change permissions of server root files
+chmod 755 $APACHE_ROCKS_ROOT/{.,conf,logs}
+chown root:root $APACHE_ROCKS_ROOT/{.,conf,logs}
+
 
 echo "(re)starting server..."
 
