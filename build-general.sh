@@ -100,14 +100,16 @@ mkdir -p $APACHE_LOGS_ROOT
 
 # -----------------------------------------------
 # include configuration file
-PROJECT_GENERAL_CONF_FILE=apache/general/apache2-general.conf
+PROJECT_GENERAL_CONF_ROOT=apache/general
 mkdir -p $APACHE_CONFIG_ROOT
-cp $PROJECT_GENERAL_CONF_FILE $APACHE_CONFIG_ROOT/apache2.conf
+cp $PROJECT_GENERAL_CONF_ROOT/apache2-general.conf $APACHE_CONFIG_ROOT/apache2.conf
 
 echo "(re)starting server..."
 
 # -----------------------------------------------
 # (re)start Apache server
+source $PROJECT_GENERAL_CONF_ROOT/envvars-general.sh
+echo $APACHE_LOG_DIR
 sudo $APACHE_BIN -d $APACHE_CONFIG_ROOT -k $CMD
 {
     [ $? -eq 0 ] &&
