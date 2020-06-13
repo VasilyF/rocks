@@ -9,7 +9,7 @@
 
 # -----------------------------------------------
 # builds the application into a serviceable state
-# on http://localhost/rocks.php:80
+# on http://localhost:80
 #
 # Arguments
 # $1 - start | restart | stop
