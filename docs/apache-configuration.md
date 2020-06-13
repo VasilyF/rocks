@@ -55,20 +55,26 @@ Do not allow reverse DNS lookup in order to use hostname in logs.
 
 **module:** core
 
+### ErrorLog /srv/apache2/rocks/logs/error.log
+
+File where errors are logged if ErrorLog unspecified in virtual host.
+
+**module:** core
+
 ### PidFile /var/run/apache2/apache2.pid
 
 file to which server records the process id of the daemon.
 
 **module:** mpm (prefork)
 
-### User www-data
+### User apache
 
 Unix user ID as which apache will handle requests. Upon startup apache uses root privileges and then demotes to lower-
 privilege user to process requests.
 
 **module:** unixd
 
-### Group www-data
+### Group apache
 
 Unix group ID apache lower-privilege user belongs to.
 
