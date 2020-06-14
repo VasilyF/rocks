@@ -69,11 +69,13 @@ relevant apache config files).
 
 **module:** core
 
-### IncludeOptional <some/path/to/mod_lib.so>
+### IncludeOptional {some/path/to/mod_lib.so}
 
 Includes modules exposed through shared libraries if they exist.
 
 **module:** core
+
+
 
 ### LogLevel warn
 
@@ -117,12 +119,77 @@ Specifies a format for error message logging. This format can be referenced thro
 **module:** log_config
 
 
-## Directory Directives
+## Directory Directives <Directory /path/to/dir>
 
-## FilesMatch Directives
+Enclose directives that only apply to the directory and its recursive contents
 
-## VirtualHost Directives
+**module:** core
 
+### Options
+
+* FollowSymLinks - the server will follow sym links within this directory
+* Indexes - if directory URL requested, in the absence of a directory index.html file (or file specified by 
+DirectoryIndex) then return a page of the directory contents (**useful for dev - turn off**)
+
+**module:** core
+
+### AllowOverride None
+
+Determines which directives in .htaccess files can override pre-established directives. None - .htaccess files 
+completely ignored.
+
+**module:** core
+
+### Require
+
+Tests whether authenticated user authorized according to authorization provider and restrictions. Generic authorization 
+providers included with the module:
+
+* all granted - unconditional access
+* all denied - unconditional denial of access
+
+**module:** authz_core
+
+## FilesMatch Directives <FilesMatch {regex}>
+
+Enclose directives that only apply to the files that match the regex.
+
+**module:** core
+
+### Require
+
+See [Require](#require)
+
+
+## VirtualHost Directives <VirtualHost {host}>
+
+Enclose directives that only apply for requests destined for a particular host. Essentially, configuration for a server 
+dedicated for a particular application but in actuality runs on a single server instance that could potentially also 
+serve other applications.
+
+**module:** core
+
+### DocumentRoot /srv/apache2/rocks/htdocs
+
+Root directory of content served by server. URLs that map directly to server resources are relative to this directory.
+
+**module:** core
+ 
+### ServerName localhost
+
+See [ServerName](#servername-localhost)
+
+### ErrorLog /srv/apache2/rocks/logs/error.log
+
+See [ErrorLog](#errorlog-srvapache2rockslogserrorlog)
+
+### CustomLog /srv/apache2/rocks/logs/access.log combined
+
+Specifies log file for server access logs and log format to use (declared previously).
+
+**module:** log_config
 
 ## Included Modules
+
+
 
