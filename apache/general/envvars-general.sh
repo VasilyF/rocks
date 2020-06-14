@@ -20,3 +20,7 @@ export APACHE_RUN_GROUP=apache
 
 export LANG=C
 
+# local environment variables should export:
+# APACHE_BIN
+# APACHE_MODULES_DIR
+

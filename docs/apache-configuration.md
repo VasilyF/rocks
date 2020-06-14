@@ -69,9 +69,9 @@ relevant apache config files).
 
 **module:** core
 
-### IncludeOptional {some/path/to/mod_lib.so}
+### IncludeOptional {some/path/to/config}
 
-Includes modules exposed through shared libraries if they exist.
+Includes configurations in other files (not currently used - configurations combined into one file).
 
 **module:** core
 
@@ -188,6 +188,11 @@ See [ErrorLog](#errorlog-srvapache2rockslogserrorlog)
 Specifies log file for server access logs and log format to use (declared previously).
 
 **module:** log_config
+
+## IfModule Directives <IfModule {module}>
+
+TODO
+
 
 ## Included Modules
 

@@ -13,7 +13,7 @@
 #
 # Arguments
 # $1 - start | restart | stop
-# $2 - absolute path to apache2 executable (other)
+# $2 - absolute path to apache2 executable (optional)
 # -----------------------------------------------
 
 echo "------------------------------------------"
@@ -61,13 +61,27 @@ fi
 
 if [ -z $APACHE_BIN ]; then
   echo "could not locate apache executable... "
-  echo "you should either: "
-  echo "1) explicitly provide the absolute path to the executable as the second argument"
-  echo "ie. ./build-general.sh start /usr/sbin/apache2"
+  echo "you can do one of the following things to resolve this: "
+  echo "1) PREFERRED - insert the following into a file called envvars-local.sh (in folder apache/general)"
+  echo "and replace /absolute/path/to/executable with the path to the executable (ie. /usr/sbin/apache2):"
+  echo "export APACHE_BIN=/absolute/path/to/executable"
   echo "2) make sure that the executable can be found using the PATH variable"
-  echo "3) insert the following into envvars-local.sh: (in apache/general)"
-  echo "export APACHE_BIN=absolute/path/to/executable"
+  echo "3) explicitly provide the absolute path to the executable as the second argument to the script"
+  echo "ie. ./build-general.sh start /usr/sbin/apache2"
   exit 1
+fi
+
+# -----------------------------------------------
+# check that modules directory exists
+
+if [ -z $APACHE_MODULES_DIR ] || [ ! -d $APACHE_MODULES_DIR ]; then
+    echo "apache modules directory unspecified"
+    echo "you can do the following things to resolve this: "
+    echo "1) insert the following into a file called envvars-local.sh (in folder apache/general)"
+    echo "and replace /absolute/path/to/dir with the path to the directory - do not include"
+    echo "the terminating slash character (ie. /usr/libexec/apache2/modules):"
+    echo "export APACHE_BIN=/absolute/path/to/dir"
+    exit 1
 fi
 
 if [ $CMD == "stop" ]; then
