@@ -193,8 +193,91 @@ Specifies log file for server access logs and log format to use (declared previo
 
 TODO
 
+# Directives TODO - later
+* DirectoryIndex index.html index.cgi index.pl index.php index.xhtml index.htm -> mod_dir
 
-## Included Modules
 
+
+## Enabled Modules
+
+### dir
+
+Serving of directory index files.
+
+### env
+
+Modifies environment variables passed to CGI script
+
+### mime
+
+Associates the requested filename's extensions with the file's behavior (handlers and filters) and content (mime-type, 
+language, character set and encoding).
+
+### alias
+
+Control of URLs of incoming requests, mapping URL to filesystem resources, redirects - asking client to fetch different 
+URL.
+
+### filter
+
+Allows context-dependent (smart) application of filters.
+
+### status
+
+Provides server status information about activity and performance.
+
+### php7.2
+
+Enable interpreting for .php files.
+
+### deflate
+
+Provides compression of content before it is sent to the client
+
+### setenvif
+
+Allows setting environment variables based on characteristics of request (ie. browser, host address)
+
+### autoindex
+
+Generates directory indexes automatically - a page listing the files in the directory.
+
+### auth_basic
+
+Basic HTTP authentication.
+
+### authn_core
+
+Core authentication capabilities, directives common to all authentication providers.
+
+### authn_file
+
+User authentication by looking up users in plain text password files.
+
+### authz_core
+
+Core authorization capabilities.
+
+### authz_host
+
+
+
+### authz_user
+
+
+
+### reqtimeout
+
+
+
+### negotiation
+
+
+
+### mpm_prefork
+
+
+
+### access_compat
 
 
