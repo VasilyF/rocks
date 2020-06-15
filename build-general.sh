@@ -3,7 +3,7 @@
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # This build script is intended to be run
 # on any UNIX/POSIX OS it places relevant
-# files into /srv/apache2/
+# files into /srv/apache2/rocks/
 # execute from rocks/ repository root directory
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
@@ -13,7 +13,7 @@
 #
 # Arguments
 # $1 - start | restart | stop
-# $2 - absolute path to apache2 executable (optional)
+# $2 (optional) - absolute path to apache2 executable
 # -----------------------------------------------
 
 echo "------------------------------------------"
@@ -73,7 +73,6 @@ fi
 
 # -----------------------------------------------
 # check that modules directory exists
-
 if [ -z $APACHE_MODULES_DIR ] || [ ! -d $APACHE_MODULES_DIR ]; then
     echo "apache modules directory unspecified"
     echo "you can do the following things to resolve this: "
@@ -123,8 +122,6 @@ mkdir -p $APACHE_LOGS_DIR
 # include configuration file
 mkdir -p $APACHE_CONFIG_DIR
 cp apache/general/apache2-general.conf $APACHE_CONFIG_DIR/httpd.conf
-# hard link apache2.conf and httpd.conf - may look for one or the other depending on OS
-#ln $APACHE_CONFIG_DIR/httpd.conf $APACHE_CONFIG_DIR/apache2.conf
 
 # -----------------------------------------------
 # include runtime directories
