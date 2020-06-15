@@ -1,2 +1,5 @@
 # IDE files
 .idea/
+
+# local environment variables
+**/envvars-local.sh
