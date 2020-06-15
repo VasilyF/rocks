@@ -80,14 +80,14 @@ if [ -z $APACHE_MODULES_DIR ] || [ ! -d $APACHE_MODULES_DIR ]; then
     echo "1) insert the following into a file called envvars-local.sh (in folder apache/general)"
     echo "and replace /absolute/path/to/dir with the path to the directory - do not include"
     echo "the terminating slash character (ie. /usr/libexec/apache2/modules):"
-    echo "export APACHE_BIN=/absolute/path/to/dir"
+    echo "export APACHE_MODULES_DIR=/absolute/path/to/dir"
     exit 1
 fi
 
 if [ $CMD == "stop" ]; then
   echo "stopping server..."
 
-  $APACHE_BIN -k $CMD
+  sudo -E $APACHE_BIN -f $APACHE_CONFIG_DIR/httpd.conf -k $CMD
   {
     [ $? -eq 0 ] &&
     {
@@ -123,24 +123,28 @@ mkdir -p $APACHE_LOGS_DIR
 # include configuration file
 mkdir -p $APACHE_CONFIG_DIR
 cp apache/general/apache2-general.conf $APACHE_CONFIG_DIR/httpd.conf
+# hard link apache2.conf and httpd.conf - may look for one or the other depending on OS
+#ln $APACHE_CONFIG_DIR/httpd.conf $APACHE_CONFIG_DIR/apache2.conf
 
 # -----------------------------------------------
 # include runtime directories
 [ ! -d $APACHE_RUN_DIR ] && mkdir -p $APACHE_RUN_DIR
-[ ! -d $APACHE_LOCK_DIR ] && mkdir_chown $APACHE_RUN_USER $APACHE_LOCK_DIR
-
+sudo [ ! -d $APACHE_LOCK_DIR ] && mkdir_chown $APACHE_RUN_USER $APACHE_LOCK_DIR
 
 # -----------------------------------------------
 # change permissions of server root files
 chmod 755 $APACHE_SERVER_ROOT/{.,conf,logs}
-chown root:root $APACHE_SERVER_ROOT/{.,conf,logs}
+sudo chown root:root $APACHE_SERVER_ROOT/{.,conf,logs}
 
-
-echo "(re)starting server..."
+if [ $CMD == "start" ]; then
+  echo "starting server..."
+else
+  echo "restarting server..."
+fi
 
 # -----------------------------------------------
 # (re)start Apache server
-sudo $APACHE_BIN -d $APACHE_CONFIG_DIR -k $CMD
+sudo -E $APACHE_BIN -f $APACHE_CONFIG_DIR/httpd.conf -k $CMD
 {
     [ $? -eq 0 ] &&
     {

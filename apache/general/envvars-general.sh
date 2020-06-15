@@ -15,8 +15,8 @@ export APACHE_LOCK_DIR=/var/lock/apache2
 
 export APACHE_PID_FILE=$APACHE_RUN_DIR/apache2.pid
 
-export APACHE_RUN_USER=apache
-export APACHE_RUN_GROUP=apache
+export APACHE_RUN_USER=www-data
+export APACHE_RUN_GROUP=www-data
 
 export LANG=C
 
