@@ -252,7 +252,7 @@ export APACHE_BIN=</usr/sbin/apache2>
 export APACHE_MODULES_DIR=</usr/libexec/apache2/modules>
 ```
 
-Replace the contents inside the angle brackets with the actual paths of (1) and (2) respectively.
+Replace the contents inside the angle brackets (excluding brackets) with the actual paths of (1) and (2) respectively.
 
 **Note:** when specifying the path to the modules directory (2) the trailing '/' should be omitted.
 
