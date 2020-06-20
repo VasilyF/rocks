@@ -23,10 +23,10 @@ ROCKS_ROOT=$PWD
 
 # -----------------------------------------------
 # include configuration files
-
-sudo cp apache/sites-available/rocks.conf $APACHE_CONFIG_ROOT/sites-available/
-sudo cp apache/conf-available/local-default.conf $APACHE_CONFIG_ROOT/conf-available/
-sudo cp apache/ports.conf $APACHE_CONFIG_ROOT/
+APACHE_DEBIAN_PROJECT_CONFIG_ROOT=apache/debian
+sudo cp $APACHE_DEBIAN_PROJECT_CONFIG_ROOT/sites-available/rocks.conf $APACHE_CONFIG_ROOT/sites-available/
+sudo cp $APACHE_DEBIAN_PROJECT_CONFIG_ROOT/conf-available/local-default.conf $APACHE_CONFIG_ROOT/conf-available/
+sudo cp $APACHE_DEBIAN_PROJECT_CONFIG_ROOT/ports.conf $APACHE_CONFIG_ROOT/
 cd $APACHE_CONFIG_ROOT/sites-available/
 sudo a2dissite -q * > /dev/null 2>&1
 sudo a2ensite -q rocks > /dev/null 2>&1
@@ -44,9 +44,7 @@ sudo mkdir $APACHE_DOCS_ROOT
 sudo chown $USER:$USER $APACHE_DOCS_ROOT
 
 # include content to be served
-cd frontend/
-cp -r images pages scripts styles $APACHE_DOCS_ROOT
-cd ../
+cp -r frontend/{images,pages,scripts,styles} $APACHE_DOCS_ROOT
 
 
 # -----------------------------------------------
