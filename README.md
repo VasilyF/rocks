@@ -3,139 +3,284 @@
 This is a toy project intended as a learning experience into creating a LAMP stack (Linux, Apache, MySQL, PHP) web 
 application from scratch. The application gives users the ability to curate a gallery of rock photos.
 
-## Getting Started
+## Installation
 
-Follow these instructions to install the required software dependencies and produce a local environment where you can 
-view and develop the application.
+Follow these instructions to install the required software dependencies for developing and running the application on 
+a local machine.
 
-### Prerequisites
+It is recommended to install dependencies through a package manager such as apt (Debian based Linux), 
+[Homebrew](https://brew.sh/) (Mac OS) or [Chocolatey](https://chocolatey.org/) (Windows) since this would automatically 
+take care of downloading and installing the whole ancestry of dependencies necessary. Homebrew and Chocolatey are 
+probably not installed on systems by default, follow the instructions in the links to install the appropriate 
+package manager.
 
-The following section briefly notes the purpose of each software dependency. It is recommended to install dependencies 
-through a package manager such as apt (Debian based Linux), [Homebrew](https://brew.sh/) (MacOS) or 
-[Chocolatey](https://chocolatey.org/) (Windows) since this would automatically take care of downloading and installing 
-the whole ancestry of dependencies necessary. 
+**NOTE:** On windows it is possible to install Apache, MySQL and PHP all in one go with:
 
-#### PhpStorm IDE - development only
-PhpStorm is an IDE oriented towards PHP development, it is available free to use under student license (requires 
-account). This is only a recommendation, feel free to use any other IDE of choice.
-
-#### Git - development only
-Git (different from Github) is version control software that is used pretty much universally in software development. 
-Here's a useful [reference](https://www.atlassian.com/git/tutorials/install-git) for installing and familiarizing 
-yourself with git.
-
-#### Apache HTTP Web Server 2.4 (httpd)
-
-Httpd is the name of the open source web server developed by the Apache Software Foundation. It is the most popular web 
-server that 52% of websites rely on. For more information, consult the 
-[official  Apache documentation](https://httpd.apache.org/docs/trunk/).
-
-*What is a web server?*
-
-A web server is a machine that is running software that allows it to listen for incoming HTTP requests, process the 
-request and send back a web page. For our purposes, the machine our server will be running on is our own computer. There 
-is a lot of configuration that you could do to make the Apache server do what you want, by default it will serve you 
-the files in the web root directory (see below).
-
-##### Installation
-
-*Linux (Debian/Ubuntu)*
-
+```shell script
+choco install wamp-server
 ```
+
+### Git
+Git is version control software used for application development.
+
+* Official [documentation](https://www.atlassian.com/git/tutorials/what-is-version-control).
+* Atlassian's beginner friendly [overview](https://www.atlassian.com/git/tutorials/what-is-version-control).
+
+#### Debian/Ubuntu
+
+```shell script
+sudo apt install git
+```
+
+#### Mac OS
+
+```shell script
+brew install git
+```
+
+#### Windows
+
+```shell script
+choco install git
+```
+
+---
+
+To check if git was installed successfully, the following should display a version message:
+
+```shell script
+git --version
+```
+
+### Apache HTTP Web Server 2.4 (httpd)
+
+Apache HTTP Web Server, otherwise known as Httpd, is the name of the open source web server developed by the Apache 
+Software Foundation. 
+
+* Official [documentation](https://httpd.apache.org/docs/trunk/).
+
+#### Debian/Ubuntu
+
+```shell script
 sudo apt install apache2
 ```
 
-*MacOS*
+#### Mac OS
 
-Recent versions of macOS come pre-installed with Apache 2.4 however, for consistency it is easier to
-unload it and then install it via Homebrew:
-```
+Recent versions of Mac OS X come with a pre-installed version of Apache 2.4, although it is also possible to uninstall 
+and re-install Apache using Homebrew if desired (for consistency):
+
+``` shell script
 sudo apachectl stop
 sudo launchctl unload -w /System/Library/LaunchDaemons/org.apache.httpd.plist 2>/dev/null
-sudo brew install httpd
+brew install httpd
 ```
 
-##### Starting the server
-The server can be controlled using the apachectl interface that comes with the server
+#### Windows
+
+```shell script
+choco install apache-httpd
 ```
-apachectl start
+
+---
+
+To check if Apache was installed successfully, start the server: 
+
+```shell script
+sudo apachectl start
 ```
-If working properly, the server should be serving the default welcome page at 
-[http://localhost:8080](http://localhost:8080). To have it serve files that we want, we would simply put them in the 
-apache web root directory. On Ubuntu this is ```/var/www/html/```, and on macOS it is ```/usr/local/var/www/``` however 
-it may be different depending on operating system so make note of where the web root directory is on your machine.
+
+Then, in a browser, go to [http://localhost:80](http://localhost:80). Apache should serve a default information page.
+
+#### MySQL
+
+MySQL is a database server used for storing information relevant to the application. 
+
+* Official [documentation](https://dev.mysql.com/doc/refman/8.0/en/).
+* Beginner friendly [tutorials](https://www.mysqltutorial.org/getting-started-with-mysql/).
+
+#### Debian/Ubuntu
+
+```shell script
+sudo apt install mysql-server
+```
+
+#### Mac OS
+
+```shell script
+brew install mysql
+```
+
+#### Windows
+
+```shell script
+choco install mysql
+```
+
+---
+
+To check if MySQL was installed successfully, the following should display a version message:
+
+```shell script
+mysql --version
+```
+
 
 #### PHP
-PHP is a programming language. 
 
-### Installing
+PHP is an interpreted programming language. To generate web content the server would use the interpreter and pass to it 
+a file to execute (ie. index.php) the PHP interpreter would run the code and produce the output html that gets sent 
+back to the client. To use PHP with Apache we need the recent version of the PHP interpreter, and the module 
+to serve as the glue between PHP and Apache. We will also use an extension that will expose functions for connecting to 
+and making queries against the MySQL database.
 
-A step by step series of examples that tell you how to get a development env running
+#### Debian/Ubuntu
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
+```shell script
+sudo apt install php libapache2-mod-php php-mysql
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+#### Mac OS
 
-## Running the tests
+Should already be installed:
 
-Explain how to run the automated tests for this system
-
-### Break down into end to end tests
-
-Explain what these tests test and why
-
-```
-Give an example
+```shell script
+php --version
 ```
 
-### And coding style tests
+Otherwise:
 
-Explain what these tests test and why
-
-```
-Give an example
+```shell script
+brew install php
 ```
 
-## Deployment
+#### Windows
 
-Add additional notes about how to deploy this on a live system
+```shell script
+choco install php
+```
 
-## Built With
+---
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+To check if the PHP interpreter was installed successfully, the following should display a version message:
 
-## Contributing
+```shell script
+php --version
+```
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+To check that Apache is using the PHP module, [clone](#cloning-repository) and [build](#building-application) the 
+application and make sure content is displayed properly in the browser. 
 
-## Versioning
+The application at present does not use the MySQL server. To test that PHP is able to use the `mysqli` 
+extension to connect and query MySQL:
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+1. Following guides on [mysqltutorial.org](https://www.mysqltutorial.org/mysql-administration.aspx):
+    1. Connect to the MySQL server through the command line as the root user.
+    2. Create a database called `test_db`
+    3. Create a user `test_user` with password `test_pass`
+    4. Grant `test_user` all permissions on `test_db` database
+2. Create a file `test-mysql.php` with the following contents:
+    ```php
+    <?php
+        $mysqli = new mysqli('localhost', 'test_user', 'test_pass', 'test_db');
+        if(!$mysqli->connect_errno){
+            echo "[SUCCESS]";
+        } else {
+            echo "[ERROR] - " . $mysqli->connect_errno . " - " . $mysqli->connect_error;
+        }
+    ?>
+    ```
+3. execute the script: 
+    `php test-mysql.php`
 
-## Authors
+## Cloning Repository
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+Cloning will bring all the files from github onto your local computer inside a 'rocks' folder within the folder where 
+the `git clone` command was issued. It is recommended that you create a new folder (ie. workspace) into which you would 
+clone any repositories. In order to clone the repository you need to be added as a contributor (contact me).
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+### Using HTTPS
+
+Using https will require you to authenticate (with your account password) whenever you connect to your account through 
+the command line (ie. to clone a repository).
+
+```shell script
+git clone https://github.com/VasilyF/rocks.git
+```
+
+### Using SSH
+
+Using ssh will allow you to automatically authenticate yourself whenever connecting to github from the command line 
+(ie. to clone a repository), you will not have to enter a password each time.
+
+Follow these [steps](https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh) to 
+generate an SSH key and add it to your account. 
+
+```shell script
+git clone https://github.com/VasilyF/rocks.git
+```
+
+## Building Application
+
+The application can be built on UNIX based systems (Linux/Mac OS) using the general-build.sh script. 
+
+**Windows:** currently no build script exists, need to build off apache2-general.conf
+
+### Specifying Local Environment Variables
+
+Prior to running the script, some local environment variables need to be set up. Since Apache is installed differently 
+on each operating system, in order to start the server it is necessary to specify: 
+
+1. The absolute path to the apache2 (could also be called httpd) binary executable, this is the server program itself
+the following are likely places where it would be installed but check and/or do some googling to find it.
+    * /usr/sbin/apache2
+2. The directory under which all the Apache modules (shared libraries) are stored.
+the following are likely places where it would be installed:
+    * /usr/lib/apache2/modules
+    * /usr/libexec/apache2/modules
+    
+Create a new file called (exactly) `envvars-local.sh` in the directory `rocks/apache/general/` and paste the following 
+contents into the file:
+
+```shell script
+export APACHE_BIN=</usr/sbin/apache2>
+export APACHE_MODULES_DIR=</usr/libexec/apache2/modules>
+```
+
+Replace the contents inside the angle brackets with the actual paths of (1) and (2) respectively.
+
+**Note:** when specifying the path to the modules directory (2) the trailing '/' should be omitted.
+
+### Running Build Script
+
+The build script build-general.sh is meant to be executed from the `rocks/` directory (root directory of project). 
+It places all the server related content (log files, config files, documents to serve) into `/srv/apache2/rocks`. 
+It could be used as follows to start, stop and restart the server:
+
+#### Start Server
+
+```shell script
+sudo ./build-general.sh start
+```
+
+#### Stop Server
+
+```shell script
+sudo ./build-general.sh stop
+```
+
+#### Restart Server
+
+This is useful to incorporate changes made in the code into the content being served by Apache.
+
+```shell script
+sudo ./build-general.sh restart
+```
+
+## Wiki
+
+Further resources are available in the github [wiki](https://github.com/VasilyF/rocks/wiki).
 
 ## License
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
-
-## Acknowledgments
-
-* Hat tip to anyone whose code
-* Inspiration
-* etc
+This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details.
