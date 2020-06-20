@@ -52,6 +52,8 @@ To check if git was installed successfully, the following should display a versi
 git --version
 ```
 
+---
+
 ### Apache HTTP Web Server 2.4 (httpd)
 
 Apache HTTP Web Server, otherwise known as Httpd, is the name of the open source web server developed by the Apache 
@@ -92,6 +94,8 @@ sudo apachectl start
 
 Then, in a browser, go to [http://localhost:80](http://localhost:80). Apache should serve a default information page.
 
+---
+
 #### MySQL
 
 MySQL is a database server used for storing information relevant to the application. 
@@ -125,6 +129,7 @@ To check if MySQL was installed successfully, the following should display a ver
 mysql --version
 ```
 
+---
 
 #### PHP
 
