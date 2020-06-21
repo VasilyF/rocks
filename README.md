@@ -139,6 +139,8 @@ back to the client. To use PHP with Apache we need the recent version of the PHP
 to serve as the glue between PHP and Apache. We will also use an extension that will expose functions for connecting to 
 and making queries against the MySQL database.
 
+* Official [documentation](https://www.php.net/manual/en/)
+
 #### Debian/Ubuntu
 
 ```shell script
