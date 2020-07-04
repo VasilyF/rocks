@@ -29,11 +29,11 @@ fi
 
 # -----------------------------------------------
 # declare environment variables
-source apache/general/envvars-general.sh
-
 if [ -f apache/general/envvars-local.sh ]; then
     source apache/general/envvars-local.sh
 fi
+
+source apache/general/envvars-general.sh
 
 # -----------------------------------------------
 # determine the path to the apache2/httpd binary
