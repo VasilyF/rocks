@@ -131,7 +131,9 @@ sudo [ ! -d $APACHE_LOCK_DIR ] && mkdir_chown $APACHE_RUN_USER $APACHE_LOCK_DIR
 # -----------------------------------------------
 # change permissions of server root files
 chmod 755 $APACHE_SERVER_ROOT/{.,conf,logs}
-sudo chown root:root $APACHE_SERVER_ROOT/{.,conf,logs}
+
+# MacOS does not permit this***
+# sudo chown root:root $APACHE_SERVER_ROOT/{.,conf,logs}
 
 if [ $CMD == "start" ]; then
   echo "starting server..."
