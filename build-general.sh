@@ -105,7 +105,9 @@ echo "purging $APACHE_SERVER_ROOT..."
 # purge /srv/apache2/rocks
 sudo rm -rf $APACHE_SERVER_ROOT
 sudo mkdir -p $APACHE_SERVER_ROOT
-sudo chown $USER:$USER $APACHE_SERVER_ROOT
+
+# NOT ON MACOS
+# sudo chown $USER:$USER $APACHE_SERVER_ROOT
 
 echo "installing files into $APACHE_SERVER_ROOT..."
 
@@ -126,7 +128,9 @@ cp apache/general/apache2-general.conf $APACHE_CONFIG_DIR/httpd.conf
 # -----------------------------------------------
 # include runtime directories
 [ ! -d $APACHE_RUN_DIR ] && mkdir -p $APACHE_RUN_DIR
-sudo [ ! -d $APACHE_LOCK_DIR ] && mkdir_chown $APACHE_RUN_USER $APACHE_LOCK_DIR
+sudo [ ! -d $APACHE_LOCK_DIR ] && mkdir $APACHE_LOCK_DIR
+
+chown $APACHE_RUN_USER:$APACHE_RUN_USER  $APACHE_LOCK_DIR
 
 # -----------------------------------------------
 # change permissions of server root files
