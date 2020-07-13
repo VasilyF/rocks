@@ -2,7 +2,7 @@
 
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 # This build script is intended to be run
-# on any UNIX/POSIX OS it places relevant
+# on Linux (Ubuntu 18), places relevant
 # files into /srv/apache2/rocks/
 # execute from rocks/ repository root directory
 # !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
@@ -30,10 +30,10 @@ fi
 # -----------------------------------------------
 # declare environment variables
 if [ -f apache/general/envvars-local.sh ]; then
-    source apache/general/envvars-local.sh
+    source apache/general/envvars-general.sh
 fi
 
-source apache/general/envvars-general.sh
+source apache/general/envvars-local.sh
 
 # -----------------------------------------------
 # determine the path to the apache2/httpd binary
@@ -106,7 +106,6 @@ echo "purging $APACHE_SERVER_ROOT..."
 sudo rm -rf $APACHE_SERVER_ROOT
 sudo mkdir -p $APACHE_SERVER_ROOT
 sudo chown $USER:$USER $APACHE_SERVER_ROOT
-
 echo "installing files into $APACHE_SERVER_ROOT..."
 
 # -----------------------------------------------
@@ -125,8 +124,10 @@ cp apache/general/apache2-general.conf $APACHE_CONFIG_DIR/httpd.conf
 
 # -----------------------------------------------
 # include runtime directories
-[ ! -d $APACHE_RUN_DIR ] && mkdir -p $APACHE_RUN_DIR
-sudo [ ! -d $APACHE_LOCK_DIR ] && mkdir_chown $APACHE_RUN_USER $APACHE_LOCK_DIR
+[ ! -d $APACHE_RUN_DIR ] && sudo mkdir -p $APACHE_RUN_DIR
+[ ! -d $APACHE_LOCK_DIR ] && sudo mkdir -p $APACHE_LOCK_DIR
+
+sudo chown $APACHE_RUN_USER:$APACHE_RUN_USER  $APACHE_LOCK_DIR
 
 # -----------------------------------------------
 # change permissions of server root files

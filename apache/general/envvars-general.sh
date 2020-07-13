@@ -5,8 +5,7 @@
 # this won't be correct after the server switches users
 unset HOME
 
-# $APACHE_SERVER_ROOT must be set in envvars-local.sh
-
+export APACHE_SERVER_ROOT=/srv/apache2/rocks
 export APACHE_DOCS_DIR=$APACHE_SERVER_ROOT/htdocs
 export APACHE_LOGS_DIR=$APACHE_SERVER_ROOT/logs
 export APACHE_CONFIG_DIR=$APACHE_SERVER_ROOT/conf
